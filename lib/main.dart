@@ -142,47 +142,61 @@ class _LoginFormState extends State<LoginForm> {
     }
   }
 
-  @override
+ @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Login'),
+      ),
       body: Form(
         child: Stack(
           children: [
             Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  if (_otpSent)
-                    IconButton(
-                      icon: Icon(Icons.arrow_back),
-                      onPressed: () {
-                        setState(() {
-                          _otpSent = false;
-                        });
-                      },
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Image.network(
+                      'https://flutter.github.io/assets-for-api-docs/assets/widgets/owl-2.jpg', // replace this with the URL of your image
+                      height: 50,
                     ),
-                  TextFormField(
-                    controller: _phoneController,
-                    enabled: !_otpSent,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(labelText: 'Enter your phone number'),
-                  ),
-                  if (_otpSent)
-                    TextFormField(
-                      controller: _otpController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(labelText: 'Enter your OTP'),
-                    ),
-                  ElevatedButton(
-                    onPressed: _otpSent ? _login : _sendOTP,
-                    child: Text(_otpSent ? 'Login' : 'Send OTP'),
-                  ),
-                  if (_errorMessage.isNotEmpty)
                     Text(
-                      _errorMessage,
-                      style: TextStyle(color: Colors.red),
+                      'Super Samiti',
+                      style: Theme.of(context).textTheme.headline5,
                     ),
-                ],
+                    if (_otpSent)
+                      IconButton(
+                        icon: Icon(Icons.arrow_back),
+                        onPressed: () {
+                          setState(() {
+                            _otpSent = false;
+                          });
+                        },
+                      ),
+                    TextFormField(
+                      controller: _phoneController,
+                      enabled: !_otpSent,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'Enter your phone number'),
+                    ),
+                    if (_otpSent)
+                      TextFormField(
+                        controller: _otpController,
+                        keyboardType: TextInputType.number,
+                        decoration: InputDecoration(labelText: 'Enter your OTP'),
+                      ),
+                    ElevatedButton(
+                      onPressed: _otpSent ? _login : _sendOTP,
+                      child: Text(_otpSent ? 'Login' : 'Send OTP'),
+                    ),
+                    if (_errorMessage.isNotEmpty)
+                      Text(
+                        _errorMessage,
+                        style: TextStyle(color: Colors.red),
+                      ),
+                  ],
+                ),
               ),
             ),
             if (_isLoading)
