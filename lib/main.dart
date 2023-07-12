@@ -144,48 +144,53 @@ class _LoginFormState extends State<LoginForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      child: Stack(
-        children: [
-          Column(
-            children: <Widget>[
-              if (_otpSent)
-                IconButton(
-                  icon: Icon(Icons.arrow_back),
-                  onPressed: () {
-                    setState(() {
-                      _otpSent = false;
-                    });
-                  },
-                ),
-              TextFormField(
-                controller: _phoneController,
-                enabled: !_otpSent,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(labelText: 'Enter your phone number'),
-              ),
-              if (_otpSent)
-                TextFormField(
-                  controller: _otpController,
-                  keyboardType: TextInputType.number,
-                  decoration: InputDecoration(labelText: 'Enter your OTP'),
-                ),
-              ElevatedButton(
-                onPressed: _otpSent ? _login : _sendOTP,
-                child: Text(_otpSent ? 'Login' : 'Send OTP'),
-              ),
-              if (_errorMessage.isNotEmpty)
-                Text(
-                  _errorMessage,
-                  style: TextStyle(color: Colors.red),
-                ),
-            ],
-          ),
-          if (_isLoading)
+    return Scaffold(
+      body: Form(
+        child: Stack(
+          children: [
             Center(
-              child: CircularProgressIndicator(),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  if (_otpSent)
+                    IconButton(
+                      icon: Icon(Icons.arrow_back),
+                      onPressed: () {
+                        setState(() {
+                          _otpSent = false;
+                        });
+                      },
+                    ),
+                  TextFormField(
+                    controller: _phoneController,
+                    enabled: !_otpSent,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(labelText: 'Enter your phone number'),
+                  ),
+                  if (_otpSent)
+                    TextFormField(
+                      controller: _otpController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(labelText: 'Enter your OTP'),
+                    ),
+                  ElevatedButton(
+                    onPressed: _otpSent ? _login : _sendOTP,
+                    child: Text(_otpSent ? 'Login' : 'Send OTP'),
+                  ),
+                  if (_errorMessage.isNotEmpty)
+                    Text(
+                      _errorMessage,
+                      style: TextStyle(color: Colors.red),
+                    ),
+                ],
+              ),
             ),
-        ],
+            if (_isLoading)
+              Center(
+                child: CircularProgressIndicator(),
+              ),
+          ],
+        ),
       ),
     );
   }
