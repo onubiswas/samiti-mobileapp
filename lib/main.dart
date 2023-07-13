@@ -42,30 +42,47 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<SharedPreferences>(
-      future: _prefs,
-      builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return MaterialApp(
-            home: Scaffold(body: Center(child: CircularProgressIndicator())),
-          );
-        } else {
-          final prefs = snapshot.data;
-          if (prefs != null) {
-            _refreshToken(prefs);
-            return MaterialApp(
-              home: prefs.getString('refresh_token') != null ? HomePage(prefs) : Scaffold(body: SafeArea(child: LoginForm(prefs))),
-            );
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: FutureBuilder<SharedPreferences>(
+        future: _prefs,
+        builder: (BuildContext context, AsyncSnapshot<SharedPreferences> snapshot) {
+          if (snapshot.connectionState == ConnectionState.waiting) {
+            return SplashScreen();
           } else {
-            // handle the case when prefs is null (this is unlikely but better to be safe)
-            return MaterialApp(home: Scaffold(body: Center(child: Text('Failed to get preferences'))));
+            final prefs = snapshot.data;
+            if (prefs != null) {
+              _refreshToken(prefs);
+              return prefs.getString('refresh_token') != null ? HomePage(prefs) : LoginForm(prefs);
+            } else {
+              return Scaffold(body: Center(child: Text('Failed to get preferences')));
+            }
           }
-        }
-      },
+        },
+      ),
     );
   }
 }
 
+class SplashScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            CircularProgressIndicator(),
+            Padding(
+              padding: EdgeInsets.only(top: 20),
+              child: Text('Loading...'),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
 
 class LoginForm extends StatefulWidget {
   final SharedPreferences prefs;
