@@ -227,10 +227,23 @@ class _LoginFormState extends State<LoginForm> {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   final SharedPreferences prefs;
 
   HomePage(this.prefs);
+
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  int _currentIndex = 0;
+
+  final tabs = [
+    Center(child: Text('Home')),
+    Center(child: Text('Search')),
+    Center(child: Text('Profile')),
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -241,14 +254,34 @@ class HomePage extends StatelessWidget {
           IconButton(
               icon: Icon(Icons.logout),
               onPressed: () async {
-                await prefs.remove('access_token');
-                await prefs.remove('refresh_token');
-                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginForm(prefs)));
+                await widget.prefs.remove('access_token');
+                await widget.prefs.remove('refresh_token');
+                Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginForm(widget.prefs)));
               }),
         ],
       ),
-      body: Center(
-        child: Text('Home Page Content'),
+      body: tabs[_currentIndex],
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        items: [
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'Home',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.search),
+            label: 'Search',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.person),
+            label: 'Profile',
+          ),
+        ],
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+        },
       ),
     );
   }
