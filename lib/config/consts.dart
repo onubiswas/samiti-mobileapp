@@ -1,0 +1,2 @@
+
+const String API_HOST = "http://localhost:8080";

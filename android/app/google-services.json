@@ -1,0 +1,154 @@
+{
+  "project_info": {
+    "project_number": "276550861760",
+    "project_id": "samiti-dev",
+    "storage_bucket": "samiti-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276550861760:android:a0008726e0671da1a9be25",
+        "android_client_info": {
+          "package_name": "com.example.playapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276550861760-aoihnffp46l44c76tqkomi3luafvn8dk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG5yK_E28ou1QkA6O-5itPGEdkmBbYnl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276550861760-aoihnffp46l44c76tqkomi3luafvn8dk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "276550861760-79ci73ut5v6t843p2fm0ltve5g7etmfl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.playapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276550861760:android:001d26d850d287f0a9be25",
+        "android_client_info": {
+          "package_name": "com.example.samitiapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276550861760-aoihnffp46l44c76tqkomi3luafvn8dk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG5yK_E28ou1QkA6O-5itPGEdkmBbYnl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276550861760-aoihnffp46l44c76tqkomi3luafvn8dk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "276550861760-79ci73ut5v6t843p2fm0ltve5g7etmfl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.playapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276550861760:android:68a435425b92ba69a9be25",
+        "android_client_info": {
+          "package_name": "com.samitiapp.mobile.samiti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276550861760-aoihnffp46l44c76tqkomi3luafvn8dk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG5yK_E28ou1QkA6O-5itPGEdkmBbYnl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276550861760-aoihnffp46l44c76tqkomi3luafvn8dk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "276550861760-79ci73ut5v6t843p2fm0ltve5g7etmfl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.playapp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:276550861760:android:267b8a5f4f43b4e6a9be25",
+        "android_client_info": {
+          "package_name": "com.samitiapp.samiti"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "276550861760-aoihnffp46l44c76tqkomi3luafvn8dk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBG5yK_E28ou1QkA6O-5itPGEdkmBbYnl0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "276550861760-aoihnffp46l44c76tqkomi3luafvn8dk.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "276550861760-79ci73ut5v6t843p2fm0ltve5g7etmfl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.playapp"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
