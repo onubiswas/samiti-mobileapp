@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../donate/donate.dart';
+import '../samiti/samiti.dart';
 
 
 class HomePage extends StatefulWidget {
@@ -18,9 +19,9 @@ class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
 
   final tabs = [
-    HomeTab(),
-    DonateScreen(),
+    SamitiTabScreen(),
     ProfileTab(),
+    DonateScreen(),
   ];
 
   @override
@@ -65,12 +66,6 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class HomeTab extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Center(child: Text('Home'));
-  }
-}
 
 
 

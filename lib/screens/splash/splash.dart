@@ -14,6 +14,8 @@ class _SplashScreenState extends State<SplashScreen> {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var refreshToken = prefs.getString('refresh_token');
 
+    print("refresh token: $refreshToken");
+
     if (refreshToken != null) {
       var url = Uri.parse('http://localhost:8080/v1/auth/token/refresh');
       var response = await http.post(url,
@@ -29,6 +31,8 @@ class _SplashScreenState extends State<SplashScreen> {
         var data = jsonDecode(response.body);
         await prefs.setString('access_token', data['access_token']);
         await prefs.setString('refresh_token', data['refresh_token']);
+        await prefs.setString('user_id', data['user_id']);
+        await prefs.setString('user_name', data['user_name']);
 
         Navigator.pushReplacementNamed(context, '/home');
 
@@ -41,9 +45,14 @@ class _SplashScreenState extends State<SplashScreen> {
     }
 
     if (refreshToken == "" || refreshToken == null) {
+      print("here refresh token is $refreshToken");
       await prefs.remove('access_token');
       await prefs.remove('refresh_token');
-      Navigator.pushReplacementNamed(context, '/login');
+
+    Future.delayed(Duration(seconds: 5), () {
+       Navigator.pushReplacementNamed(context, '/login');
+    });
+      // Navigator.pushReplacementNamed(context, '/login');
     }
   }
 
