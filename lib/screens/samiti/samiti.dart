@@ -72,7 +72,7 @@ class _SamitiTabScreenState extends State<SamitiTabScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => SamitiDetailScreen(id: item.id),
+                          builder: (context) => SamitiDetailScreen(samitiId: item.id, samitiName: item.name,),
                         ),
                       );
                     },
@@ -88,7 +88,7 @@ class _SamitiTabScreenState extends State<SamitiTabScreen> {
                 },
               ),
       ),
-      floatingActionButton: samitiList == null || samitiList!.items.isEmpty
+      floatingActionButton: samitiList != null && samitiList!.items.length < 4 
           ? FloatingActionButton(
               onPressed: () {
                 Navigator.of(context).pushNamed('/create-samiti');

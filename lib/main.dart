@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:samiti/screens/samiti/create.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'analytics/mxpanel.dart';
@@ -112,6 +113,7 @@ class MyApp extends StatelessWidget {
         '/': (context) => SplashScreen(),
         '/login': (context) => LoginForm(prefs),
         '/home': (context) => HomePage(prefs),
+        '/create-samiti':(context) => CreateSamitiForm(),
       },
     );
   }

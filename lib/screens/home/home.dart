@@ -1,9 +1,9 @@
 
 import 'package:flutter/material.dart';
+import 'package:samiti/screens/donate/donate.dart';
+import 'package:samiti/screens/samiti/samiti.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../donate/donate.dart';
-import '../samiti/samiti.dart';
 
 
 class HomePage extends StatefulWidget {
