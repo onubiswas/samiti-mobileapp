@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:samiti/models/samiti_list_response.dart';
+import 'package:samiti/screens/samiti/detail.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -12,7 +13,6 @@ class SamitiTabScreen extends StatefulWidget {
 class _SamitiTabScreenState extends State<SamitiTabScreen> {
   SamitiListResponse? samitiList;
   bool isLoading = true;
-  String? dropdownValue;
 
   @override
   void initState() {
@@ -24,7 +24,7 @@ class _SamitiTabScreenState extends State<SamitiTabScreen> {
     setState(() {
       isLoading = true;
     });
-    
+
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? accessToken = prefs.getString("access_token");
 
@@ -39,7 +39,6 @@ class _SamitiTabScreenState extends State<SamitiTabScreen> {
       if (response.statusCode == 200) {
         setState(() {
           samitiList = SamitiListResponse.fromJson(jsonDecode(response.body));
-          dropdownValue = samitiList?.items.first.id;
           isLoading = false;
         });
       } else if (response.statusCode == 401) {
@@ -64,25 +63,29 @@ class _SamitiTabScreenState extends State<SamitiTabScreen> {
         onRefresh: fetchSamitiList,
         child: isLoading
             ? Center(child: CircularProgressIndicator())
-            : ListView(
-                children: [
-                  Center(
-                    child: DropdownButton<String>(
-                      value: dropdownValue,
-                      items: samitiList?.items.map((SamitiListItem value) {
-                        return DropdownMenuItem<String>(
-                          value: value.id,
-                          child: Text(value.name),
-                        );
-                      }).toList(),
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          dropdownValue = newValue;
-                        });
-                      },
+            : ListView.builder(
+                itemCount: samitiList?.items.length ?? 0,
+                itemBuilder: (context, index) {
+                  final item = samitiList!.items[index];
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => SamitiDetailScreen(id: item.id),
+                        ),
+                      );
+                    },
+                    child: Card(
+                      margin: EdgeInsets.all(8.0),
+                      child: ListTile(
+                        title: Text(item.name),
+                        subtitle: Text(item.id),
+                        leading: Icon(Icons.person, color: Colors.teal),
+                      ),
                     ),
-                  ),
-                ],
+                  );
+                },
               ),
       ),
       floatingActionButton: samitiList == null || samitiList!.items.isEmpty

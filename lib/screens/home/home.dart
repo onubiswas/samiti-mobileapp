@@ -27,19 +27,19 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: null,
-      // appBar: AppBar(
-      //   title: Text("Home Page"),
-      //   actions: [
-      //     IconButton(
-      //         icon: Icon(Icons.logout),
-      //         onPressed: () async {
-      //           await widget.prefs.remove('access_token');
-      //           await widget.prefs.remove('refresh_token');
-      //           Navigator.pushReplacementNamed(context, '/login');
-      //         }),
-      //   ],
-      // ),
+      // appBar: null,
+      appBar: AppBar(
+        title: Text("SamitiApp"),
+        actions: [
+          IconButton(
+              icon: Icon(Icons.logout),
+              onPressed: () async {
+                await widget.prefs.remove('access_token');
+                await widget.prefs.remove('refresh_token');
+                Navigator.pushReplacementNamed(context, '/login');
+              }),
+        ],
+      ),
       body: tabs[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
