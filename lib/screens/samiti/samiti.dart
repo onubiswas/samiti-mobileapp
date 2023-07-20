@@ -12,8 +12,7 @@ class SamitiTabScreen extends StatefulWidget {
 class _SamitiTabScreenState extends State<SamitiTabScreen> {
   SamitiListResponse? samitiList;
   bool isLoading = true;
-    String? dropdownValue; // Add this line
-
+  String? dropdownValue;
 
   @override
   void initState() {
@@ -21,7 +20,11 @@ class _SamitiTabScreenState extends State<SamitiTabScreen> {
     fetchSamitiList();
   }
 
-  void fetchSamitiList() async {
+  Future<void> fetchSamitiList() async {
+    setState(() {
+      isLoading = true;
+    });
+    
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? accessToken = prefs.getString("access_token");
 
@@ -35,10 +38,10 @@ class _SamitiTabScreenState extends State<SamitiTabScreen> {
 
       if (response.statusCode == 200) {
         setState(() {
-        samitiList = SamitiListResponse.fromJson(jsonDecode(response.body));
-        isLoading = false;
-        dropdownValue = samitiList?.items.first.id; // Set the first item as selected
-      });
+          samitiList = SamitiListResponse.fromJson(jsonDecode(response.body));
+          dropdownValue = samitiList?.items.first.id;
+          isLoading = false;
+        });
       } else if (response.statusCode == 401) {
         await prefs.remove('access_token');
         await prefs.remove('refresh_token');
@@ -54,38 +57,43 @@ class _SamitiTabScreenState extends State<SamitiTabScreen> {
     }
   }
 
-@override
-Widget build(BuildContext context) {
-  return Scaffold(
-    body: isLoading
-        ? Center(child: CircularProgressIndicator())
-        : Center(
-            child: DropdownButton<String>(
-              value: dropdownValue,
-              items: samitiList?.items.map((SamitiListItem value) {
-                return DropdownMenuItem<String>(
-                  value: value.id,
-                  child: Text(value.name),
-                );
-              }).toList(),
-              onChanged: (String? newValue) {
-                setState(() {
-                  dropdownValue = newValue;
-                });
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: RefreshIndicator(
+        onRefresh: fetchSamitiList,
+        child: isLoading
+            ? Center(child: CircularProgressIndicator())
+            : ListView(
+                children: [
+                  Center(
+                    child: DropdownButton<String>(
+                      value: dropdownValue,
+                      items: samitiList?.items.map((SamitiListItem value) {
+                        return DropdownMenuItem<String>(
+                          value: value.id,
+                          child: Text(value.name),
+                        );
+                      }).toList(),
+                      onChanged: (String? newValue) {
+                        setState(() {
+                          dropdownValue = newValue;
+                        });
+                      },
+                    ),
+                  ),
+                ],
+              ),
+      ),
+      floatingActionButton: samitiList == null || samitiList!.items.isEmpty
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed('/create-samiti');
               },
-            ),
-          ),
-    floatingActionButton: samitiList == null || samitiList!.items.isEmpty
-        ? FloatingActionButton(
-            onPressed: () {
-              Navigator.of(context).pushNamed('/create-samiti');
-            },
-            child: Icon(Icons.add),
-            backgroundColor: Colors.green,
-          )
-        : null,
-  );
-}
-
-
+              child: Icon(Icons.add),
+              backgroundColor: Colors.green,
+            )
+          : null,
+    );
+  }
 }
