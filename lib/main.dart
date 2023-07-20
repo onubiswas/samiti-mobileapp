@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'analytics/mxpanel.dart';
 import 'firebase_options.dart';
 import 'screens/home/home.dart';
 import 'screens/login/loginScreen.dart';
@@ -9,6 +10,7 @@ import 'screens/splash/splash.dart';
 
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+
 
 FlutterLocalNotificationsPlugin? flutterLocalNotificationsPlugin;
 
@@ -20,6 +22,8 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+
+  
   var initializationSettingsAndroid = AndroidInitializationSettings('@mipmap/ic_launcher');
   var initializationSettings = InitializationSettings(android: initializationSettingsAndroid);
   flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
@@ -57,6 +61,7 @@ class MyApp extends StatelessWidget {
   final SharedPreferences prefs;
 
   MyApp(this.prefs) {
+    initMixpanel();
     final isFirstTime = prefs.getBool('first_time') ?? true;
 
     if (isFirstTime) {

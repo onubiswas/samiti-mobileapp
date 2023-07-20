@@ -36,9 +36,11 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_analytics: ^10.4.4
   shared_preferences: ^2.2.0
-  http: ^1.1.0
+  http: ^0.13.0
   firebase_messaging: ^14.6.5
   flutter_local_notifications: ^12.0.3
+  mixpanel_analytics: ^2.1.1
+  mixpanel_flutter: ^2.1.1
 
 dev_dependencies:
   flutter_test:

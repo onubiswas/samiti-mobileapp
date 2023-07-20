@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:samiti/analytics/mxpanel.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -98,9 +99,17 @@ class _LoginFormState extends State<LoginForm> {
     if (response.statusCode == 200) {
       var data = jsonDecode(response.body);
       await widget.prefs.setString('access_token', data['access_token']);
-      await widget.prefs.setString('refresh_token', data['refresh_token']);
+      await widget.prefs.setString('access_token', data['access_token']);
+      await widget.prefs.setString('user_id', data['user_id']);
+      await widget.prefs.setString('user_name', data['user_name']);
+    mxIdentify(data['user_id']);
+     mxTrack("login_success", {
+        'user_id': data['user_id'],
+      });
+
       Navigator.pushReplacementNamed(context, '/home');
     } else {
+
       _errorMessage = 'Failed to login';
     }
   }
