@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:samiti/models/samiti_list_response.dart';
-import 'package:samiti/screens/samiti/detail.dart';
+import 'package:samiti/screens/samiti/detail/samiti.dart';
 import 'package:samiti/screens/samiti/widget/samiti_list_card.dart';
 import 'package:samiti/screens/samiti/widget/find_samiti_modal.dart';
 import 'dart:convert';
