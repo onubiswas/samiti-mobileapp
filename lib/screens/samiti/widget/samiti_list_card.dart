@@ -32,7 +32,7 @@ class SamitiListCard extends StatelessWidget {
           Row(
             children: [
               Icon(
-                Icons.account_balance_wallet_rounded,
+                Icons.group,
                 size: 40.0, // larger icon
               ),
               SizedBox(width: 16.0), // Space between icon and text

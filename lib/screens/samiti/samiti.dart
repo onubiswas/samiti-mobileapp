@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:samiti/models/samiti_list_response.dart';
 import 'package:samiti/screens/samiti/detail.dart';
 import 'package:samiti/screens/samiti/widget/samiti_list_card.dart';
+import 'package:samiti/screens/samiti/widget/find_samiti_modal.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -57,40 +58,101 @@ class _SamitiTabScreenState extends State<SamitiTabScreen> {
     }
   }
 
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: RefreshIndicator(
+  void _navigateToCreateSamiti() {
+    Navigator.of(context).pushNamed('/create-samiti');
+  }
+
+  void _openFindSamitiModal() {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) {
+          return FindSamitiModal();
+        });
+  }
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    body: Padding(
+      padding: EdgeInsets.only(top: 16.0),  // padding at the top
+      child: RefreshIndicator(
         onRefresh: fetchSamitiList,
         child: isLoading
-            ? Center(child: CircularProgressIndicator())
-            : ListView.builder(
-                itemCount: samitiList?.items.length ?? 0,
-                itemBuilder: (context, index) {
-                  final item = samitiList!.items[index];
-                  return InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => SamitiDetailScreen(samitiId: item.id, samitiName: item.name,),
+            ? const Center(child: CircularProgressIndicator())
+            : Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0), // reduced vertical padding
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          'Samiti List',
+                          style: TextStyle(
+                            fontSize: 28.0, // large text
+                            fontWeight: FontWeight.bold,
+                          ),
                         ),
-                      );
-                    },
-                    child:  SamitiListCard(item: item),
-                  );
-                },
+                        SizedBox(height: 8.0),
+                        Row(
+                          children: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pushNamed('/create-samiti');
+                              },
+                              child: Text('Create Samiti', style: TextStyle(color: Colors.blue)),
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                              ),
+                            ),
+                            SizedBox(width: 16.0),
+                            TextButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => Dialog(child: FindSamitiModal()),
+                                );
+                              },
+                              child: Text('Find Samiti', style: TextStyle(color: Colors.blue)),
+                              style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: samitiList != null && samitiList!.items.isNotEmpty
+                        ? ListView.builder(
+                            itemCount: samitiList!.items.length,
+                            itemBuilder: (context, index) {
+                              final item = samitiList!.items[index];
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          SamitiDetailScreen(samitiId: item.id, samitiName: item.name,),
+                                    ),
+                                  );
+                                },
+                                child: SamitiListCard(item: item),
+                              );
+                            },
+                          )
+                        : Center(
+                            child: Text('No Samiti Found'), // displayed when list is empty
+                          ),
+                  ),
+                ],
               ),
       ),
-      floatingActionButton: samitiList != null && samitiList!.items.length < 4 
-          ? FloatingActionButton(
-              onPressed: () {
-                Navigator.of(context).pushNamed('/create-samiti');
-              },
-              child: Icon(Icons.add),
-              backgroundColor: Colors.green,
-            )
-          : null,
-    );
-  }
+    ),
+  );
+}
+
 }
