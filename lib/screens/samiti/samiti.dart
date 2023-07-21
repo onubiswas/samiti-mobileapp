@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:samiti/models/samiti_list_response.dart';
 import 'package:samiti/screens/samiti/detail.dart';
+import 'package:samiti/screens/samiti/widget/samiti_list_card.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -76,14 +77,7 @@ class _SamitiTabScreenState extends State<SamitiTabScreen> {
                         ),
                       );
                     },
-                    child: Card(
-                      margin: EdgeInsets.all(8.0),
-                      child: ListTile(
-                        title: Text(item.name),
-                        subtitle: Text(item.id),
-                        leading: Icon(Icons.person, color: Colors.teal),
-                      ),
-                    ),
+                    child:  SamitiListCard(item: item),
                   );
                 },
               ),
